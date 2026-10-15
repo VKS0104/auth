@@ -17,10 +17,14 @@ const { User, Product } = require('./DataBase/fsCopy.js')
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect('mongodb://127.0.0.1:27017/rdbms').then(() => {
-  console.log('db connected succesfully.....');
-
-})
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('MongoDB Atlas connected successfully');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection failed:', err.message);
+    process.exit(1);
+  });
 
 let googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -361,6 +365,8 @@ app.post('/api/reset-password/:resetToken', async (req, res) => {
 })
 
 
-app.listen(3000, () => {
-  console.log("server runninggggg.........");
-})
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
