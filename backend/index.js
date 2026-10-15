@@ -143,7 +143,7 @@ app.post('/signUp', async (req, res) => {
       name,
       email,
       password: hashedPass,
-      role: role || 'user',
+      role:'user',
     })
 
     await UserInfo.save();
@@ -358,7 +358,10 @@ app.post('/api/reset-password/:resetToken', async (req, res) => {
 
   let hashedPass = await bcrypt.hash(newPassword, 10);
 
+
   findUser.password = hashedPass;
+  findUser.resetToken = undefined;
+  findUser.resetTokenExpiry = undefined;
 
   await findUser.save();
 
