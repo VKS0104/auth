@@ -74,7 +74,7 @@ app.post('/auth/google', async (req, res) => {
         name: name || email.split('@')[0],
         email,
         googleId,
-        role:"user",
+        role: "user",
       })
     }
 
@@ -324,7 +324,8 @@ app.post('/forgot-password', async (req, res) => {
     await user.save();
 
 
-    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetUrl =
+      `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
     // `${req.protocol}://${req.get('host')}/api/reset-password/${resetToken}`
     await sendEmail(

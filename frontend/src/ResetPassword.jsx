@@ -11,6 +11,7 @@ const ResetPassword = () => {
   let [success, setSuccess] = useState("");
 
   let {resetToken} = useParams()
+  const API_URL = import.meta.env.VITE_API_URL;
 
   function change(e){
     setData({
@@ -25,7 +26,7 @@ const ResetPassword = () => {
   async function resetPass()
   {
     try {
-      let res = await axios.post(`http://localhost:3000/api/reset-password/${resetToken}`,data);
+      let res = await axios.post(`${API_URL}/api/reset-password/${resetToken}`,data);
       
       if (typeof res.data === 'string') {
         setSuccess(res.data);

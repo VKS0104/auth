@@ -13,6 +13,8 @@ const Login = () => {
 
   const navigate = useNavigate()
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   function fun(e) {
     let { name, value } = e.target;
     setData({
@@ -25,7 +27,7 @@ const Login = () => {
 
   async function done() {
     try {
-      let apiRes = await axios.post('http://localhost:3000/login', data);
+      let apiRes = await axios.post(`${API_URL}/login`, data);
 
       // The backend returns 200 OK with string messages for errors
       if (typeof apiRes.data === 'string') {
@@ -54,7 +56,7 @@ const Login = () => {
       const credential = credentialResponse.credential;
 
       const apiRes = await axios.post(
-        'http://localhost:3000/auth/google',
+        `${API_URL}/auth/google`,
         { credential }
       );
 
@@ -95,7 +97,7 @@ const Login = () => {
       <div className="form-group" style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <label className="form-label">Password</label>
-          <Link to="/reset-password/dummytoken" style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', textDecoration: 'none' }}>Forgot Password?</Link>
+          <Link to="/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', textDecoration: 'none' }}>Forgot Password?</Link>
         </div>
         <input
           type="password"

@@ -10,6 +10,7 @@ const Dash = () => {
   let [myOrders,setMyOrders] = useState([])
   let [orderPlaced,setOrderPlaced] = useState(false)
   let navigate = useNavigate()
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     // Optionally fetch orders on mount
@@ -18,8 +19,9 @@ const Dash = () => {
 
   async function fun(){
     let token = localStorage.getItem('token');
+  
     try {
-      let res = await axios.get('http://localhost:3000/admin',{
+      let res = await axios.get(`${API_URL}/admin`,{
         headers:{
           'Authorization':token,
         }
@@ -33,7 +35,7 @@ const Dash = () => {
   async function placeOrder(){
     let token = localStorage.getItem('token');
     try {
-      let res = await axios.post('http://localhost:3000/orders',productDetails,{
+      let res = await axios.post(`${API_URL}/orders`,productDetails,{
         headers:{
           'Authorization':token,
         }
@@ -60,7 +62,7 @@ const Dash = () => {
   async function showOrders(){
     let token = localStorage.getItem('token')
     try {
-      let res = await axios.get('http://localhost:3000/my-orders',{
+      let res = await axios.get(`${API_URL}/my-orders`,{
         headers:{
           "Authorization":token,
         }

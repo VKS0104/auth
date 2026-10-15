@@ -13,6 +13,7 @@ const SignUp = () => {
   
   let [error, setError] = useState("");
   let [success, setSuccess] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   function fun1(e)
   {
@@ -30,7 +31,7 @@ const SignUp = () => {
   async function done()
   {
     try {
-      let apiRes = await axios.post('http://localhost:3000/signUp', data);
+      let apiRes = await axios.post(`${API_URL}/signUp`, data);
       
       if (typeof apiRes.data === 'string') {
         if (apiRes.data === "User Already Exist, Please Login") {
